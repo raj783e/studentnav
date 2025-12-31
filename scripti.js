@@ -101,22 +101,26 @@ const mapStyles = [
 // --------------------------------------------------------------
 // INITIALIZATION
 // --------------------------------------------------------------
-// --------------------------------------------------------------
-// INITIALIZATION
-// --------------------------------------------------------------
+
 // Note: initMap is called by the Google Maps API callback in index.html
 function initMap() {
     console.log("Initializing map...");
     try {
-        // Initialize map centered on a default location (London)
+        // Initialize map centered on Parul University
         map = new google.maps.Map(document.getElementById("map"), {
-            center: { lat: 51.505, lng: -0.09 },
-            zoom: 13,
+            center: { lat: 22.2886, lng: 73.3624 }, // Parul University
+            zoom: 15,
             styles: mapStyles,
             mapTypeControl: false,
             streetViewControl: false,
             fullscreenControl: false
         });
+        new google.maps.Marker({
+            position: { lat: 22.2886, lng: 73.3624 },
+            map: map,
+            title: "Parul University"
+        });
+
 
         infoWindow = new google.maps.InfoWindow();
 
@@ -237,40 +241,40 @@ function loadDemoData() {
             name: 'Student Hub Central',
             category: 'social',
             description: 'A popular meeting spot for students with free Wi-Fi and coffee.',
-            lat: 51.505,
-            lng: -0.09
+            lat: 22.2886,
+            lng: 73.3624
         },
         {
             id: 'demo2',
-            name: 'Budget Bites',
+            name: 'Campus Canteen',
             category: 'food',
             description: 'Amazing street food at student-friendly prices.',
-            lat: 51.51,
-            lng: -0.1
+            lat: 22.2895,
+            lng: 73.3610
         },
         {
             id: 'demo3',
-            name: 'Green Park Dorms',
+            name: 'Parul Hostels',
             category: 'accommodation',
             description: 'Affordable student housing near the university campus.',
-            lat: 51.50,
-            lng: -0.08
+            lat: 22.2850,
+            lng: 73.3650
         },
         {
             id: 'demo4',
-            name: 'The Old Library',
+            name: 'Central Library',
             category: 'social',
             description: 'Historic library open 24/7 for study sessions.',
-            lat: 51.515,
-            lng: -0.095
+            lat: 22.2910,
+            lng: 73.3640
         },
         {
             id: 'demo5',
-            name: 'Noodle Bar',
+            name: 'Maggi Point',
             category: 'food',
-            description: 'Best ramen in town, 10% discount for students.',
-            lat: 51.508,
-            lng: -0.11
+            description: 'Best quick bites in town, 10% discount for students.',
+            lat: 22.2870,
+            lng: 73.3590
         }
     ];
     renderApp();
@@ -328,14 +332,10 @@ function renderApp() {
     });
 
     // Fit map to bounds if we have markers
-    if (markers.length > 0) {
-        map.fitBounds(bounds);
-        // Optional: Zoom out slightly if too zoomed in (e.g. single point)
-        const listener = google.maps.event.addListener(map, "idle", () => {
-            if (map.getZoom() > 16) map.setZoom(16);
-            google.maps.event.removeListener(listener);
-        });
-    }
+    // Fit map to bounds is disabled to respect the default center
+    // if (markers.length > 0) {
+    //     map.fitBounds(bounds);
+    // }
 }
 
 function createMarker(loc) {
